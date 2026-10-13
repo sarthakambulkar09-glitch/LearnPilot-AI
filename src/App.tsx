@@ -3,11 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-<<<<<<< HEAD
 import React, { Suspense, lazy, useState, useEffect } from 'react';
-=======
-import React, { useState, useEffect } from 'react';
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
 import { Header } from './components/Header';
 import { Dashboard } from './components/Dashboard';
 import { ForecastSection } from './components/ForecastSection';
@@ -30,13 +26,10 @@ import {
   WeeklyForecast
 } from './types';
 
-<<<<<<< HEAD
 const FriendsSection = lazy(() =>
   import('./components/FriendsSection').then(module => ({ default: module.FriendsSection }))
 );
 
-=======
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('dashboard');
 
@@ -184,7 +177,6 @@ export default function App() {
           />
         )}
 
-<<<<<<< HEAD
         {activeTab === 'flashcards' && (
           <FlashcardsSection
             subjects={subjects}
@@ -199,8 +191,6 @@ export default function App() {
           </Suspense>
         )}
 
-=======
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
         {activeTab === 'tutor' && (
           <AITutorSection
             subjects={subjects}
