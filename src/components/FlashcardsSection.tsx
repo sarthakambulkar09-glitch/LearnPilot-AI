@@ -277,7 +277,6 @@ export const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({
   const uniqueTopics = Array.from(new Set(cards.map(c => c.topicName)));
   const uniqueSubjects = Array.from(new Set(cards.map(c => c.subjectName)));
 
-<<<<<<< HEAD
   const ConceptDiagram = ({ card }: { card: Flashcard }) => {
     const keyPoints = (card.keyPoints || []).slice(0, 3);
     const pointColors = [
@@ -336,8 +335,6 @@ export const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({
     );
   };
 
-=======
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
       
@@ -527,19 +524,11 @@ export const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({
 
           {/* 3D Flip Container with CSS 3D Transforms */}
           <div
-<<<<<<< HEAD
             className="relative h-[680px] w-full perspective-[1200px] cursor-pointer select-none sm:h-[620px]"
             onClick={() => setIsFlipped(!isFlipped)}
           >
             <div
               className={`relative h-full w-full rounded-3xl transition-transform duration-500 transform-style-3d ${
-=======
-            className="relative min-h-[380px] w-full perspective-[1200px] cursor-pointer select-none"
-            onClick={() => setIsFlipped(!isFlipped)}
-          >
-            <div
-              className={`w-full min-h-[380px] rounded-3xl transition-transform duration-500 transform-style-3d relative ${
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
                 isFlipped ? 'rotate-y-180' : ''
               }`}
               style={{
@@ -550,30 +539,17 @@ export const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({
               
               {/* FRONT FACE: The Active Recall Prompt */}
               <div
-<<<<<<< HEAD
                 className="absolute inset-0 flex h-full w-full flex-col overflow-hidden rounded-3xl glass-panel-glow p-4 shadow-2xl border border-indigo-500/40 backface-hidden sm:p-6"
                 style={{ backfaceVisibility: 'hidden' }}
               >
                 {/* Front Header */}
                 <div className="flex shrink-0 items-center justify-between gap-3 text-xs">
                   <div className="flex min-w-0 items-center gap-2">
-=======
-                className="absolute inset-0 w-full h-full rounded-3xl glass-panel-glow p-8 border border-indigo-500/40 backface-hidden flex flex-col justify-between shadow-2xl"
-                style={{ backfaceVisibility: 'hidden' }}
-              >
-                {/* Front Header */}
-                <div className="flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2">
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
                     <span className="text-cyan-400 font-bold uppercase tracking-wider text-[11px]">
                       {activeCard.subjectName}
                     </span>
                     <span className="text-slate-600">/</span>
-<<<<<<< HEAD
                     <span className="truncate text-slate-300 font-medium">
-=======
-                    <span className="text-slate-300 font-medium">
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
                       {activeCard.topicName}
                     </span>
                   </div>
@@ -594,7 +570,6 @@ export const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({
                 </div>
 
                 {/* Question / Recall Prompt Center */}
-<<<<<<< HEAD
                 <div className="mx-auto flex min-h-0 w-full max-w-3xl flex-1 flex-col justify-center gap-3 overflow-y-auto py-3 text-center">
                   <div className="shrink-0 rounded-xl border border-cyan-500/20 bg-gradient-to-r from-cyan-500/10 via-indigo-500/10 to-purple-500/10 px-3 py-2">
                     <span className="block text-[10px] font-bold uppercase tracking-[0.16em] text-cyan-300">
@@ -605,13 +580,6 @@ export const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({
                   <ConceptDiagram card={activeCard} />
 
                   <h3 className="shrink-0 px-1 text-lg font-extrabold leading-snug text-white drop-shadow-[0_0_18px_rgba(99,102,241,0.35)] sm:text-xl">
-=======
-                <div className="my-auto py-6 text-center space-y-4 max-w-2xl mx-auto">
-                  <span className="text-[11px] text-indigo-400 font-bold uppercase tracking-widest block">
-                    Active Recall Question
-                  </span>
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-white leading-relaxed">
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
                     {activeCard.front}
                   </h3>
 
@@ -627,11 +595,7 @@ export const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({
                 </div>
 
                 {/* Front Footer */}
-<<<<<<< HEAD
                 <div className="flex shrink-0 items-center justify-between gap-3 border-t border-slate-800/80 pt-3 text-xs text-slate-400">
-=======
-                <div className="flex items-center justify-between text-xs text-slate-400 pt-4 border-t border-slate-800/80">
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
                   <button
                     type="button"
                     onClick={e => {
@@ -644,11 +608,7 @@ export const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({
                     {showHint ? 'Hide Clue' : 'Need Clue?'}
                   </button>
 
-<<<<<<< HEAD
                   <div className="flex items-center gap-1 text-right text-[10px] font-bold text-cyan-400 sm:text-[11px]">
-=======
-                  <div className="flex items-center gap-1 text-[11px] text-cyan-400 font-bold">
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
                     <RotateCw className="w-3.5 h-3.5 animate-spin-slow" />
                     Click or press Space to reveal answer
                   </div>
@@ -657,33 +617,20 @@ export const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({
 
               {/* BACK FACE: The Comprehensive Model Solution */}
               <div
-<<<<<<< HEAD
                 className="absolute inset-0 flex h-full w-full flex-col overflow-hidden rounded-3xl glass-panel-glow p-4 shadow-2xl border border-emerald-500/40 backface-hidden sm:p-6"
-=======
-                className="absolute inset-0 w-full h-full rounded-3xl glass-panel-glow p-8 border border-emerald-500/40 backface-hidden flex flex-col justify-between shadow-2xl overflow-y-auto"
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
                 style={{
                   backfaceVisibility: 'hidden',
                   transform: 'rotateY(180deg)'
                 }}
               >
                 {/* Back Header */}
-<<<<<<< HEAD
                 <div className="flex shrink-0 items-center justify-between gap-3 border-b border-slate-800 pb-3 text-xs">
                   <div className="flex min-w-0 items-center gap-2">
-=======
-                <div className="flex items-center justify-between text-xs pb-3 border-b border-slate-800">
-                  <div className="flex items-center gap-2">
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
                     <span className="text-emerald-400 font-bold uppercase tracking-wider text-[11px]">
                       Model Solution & Synthesis
                     </span>
                     <span className="text-slate-600">·</span>
-<<<<<<< HEAD
                     <span className="truncate text-slate-400">{activeCard.topicName}</span>
-=======
-                    <span className="text-slate-400">{activeCard.topicName}</span>
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
                   </div>
 
                   <div className="flex items-center gap-2" onClick={e => e.stopPropagation()}>
@@ -704,13 +651,9 @@ export const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({
                 </div>
 
                 {/* Back Content Center */}
-<<<<<<< HEAD
                 <div className="min-h-0 flex-1 space-y-4 overflow-y-auto py-4 text-left">
                   <ConceptDiagram card={activeCard} />
 
-=======
-                <div className="space-y-4 py-4 text-left">
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
                   {/* Detailed Explanation */}
                   <p className="text-sm sm:text-base text-slate-100 font-medium leading-relaxed whitespace-pre-line">
                     {activeCard.back}
@@ -735,11 +678,7 @@ export const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({
 
                   {/* Cognitive Memory Mnemonic Anchor */}
                   {activeCard.mnemonic && (
-<<<<<<< HEAD
                     <div className="p-3 rounded-xl bg-gradient-to-r from-amber-500/12 via-yellow-500/10 to-orange-500/10 border border-amber-500/40 text-xs">
-=======
-                    <div className="p-3 rounded-xl bg-amber-950/40 border border-amber-600/40 text-xs">
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
                       <div className="flex items-center gap-2 font-bold text-amber-300 text-[11px] mb-0.5">
                         <Flame className="w-3.5 h-3.5 text-amber-400" />
                         Memory Mnemonic Anchor:
@@ -752,11 +691,7 @@ export const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({
                 </div>
 
                 {/* Back Footer: Google Search Grounding Deep Dive Action */}
-<<<<<<< HEAD
                 <div className="flex shrink-0 items-center justify-between gap-3 border-t border-slate-800 pt-3 text-xs" onClick={e => e.stopPropagation()}>
-=======
-                <div className="flex items-center justify-between text-xs pt-3 border-t border-slate-800" onClick={e => e.stopPropagation()}>
->>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
                   <button
                     type="button"
                     onClick={() => handleSearchConcept(activeCard.front, activeCard.subjectName, activeCard.topicName)}
