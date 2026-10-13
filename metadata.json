@@ -1,0 +1,6 @@
+{
+  "name": "LearnPilot AI - Advanced Personalized Exam Intelligence",
+  "description": "AI-powered exam intelligence platform with weekly learning forecasts, dynamic study planner, customized test generator, and automated paper evaluation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
