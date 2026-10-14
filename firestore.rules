@@ -1,0 +1,118 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isFriend(ownerUid) {
+      return signedIn() &&
+        exists(/databases/$(database)/documents/profiles/$(ownerUid)/friends/$(request.auth.uid));
+    }
+
+    function codeForUid(uid) {
+      return get(/databases/$(database)/documents/profiles/$(uid)).data.friendCode;
+    }
+
+    function nameForUid(uid) {
+      return get(/databases/$(database)/documents/profiles/$(uid)).data.displayName;
+    }
+
+    match /profiles/{uid} {
+      allow get: if signedIn() && request.auth.uid == uid;
+      allow list: if false;
+      allow create: if signedIn()
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['displayName', 'friendCode', 'createdAt'])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() > 0
+        && request.resource.data.displayName.size() <= 40
+        && request.resource.data.friendCode is string
+        && request.resource.data.friendCode.matches('[A-F0-9]{12}')
+        && getAfter(/databases/$(database)/documents/friendCodes/$(request.resource.data.friendCode)).data.uid == uid;
+      allow update, delete: if false;
+
+      match /friends/{friendUid} {
+        allow get, list: if signedIn() && request.auth.uid == uid;
+        allow create: if signedIn()
+          && request.resource.data.uid == friendUid
+          && request.resource.data.displayName is string
+          && request.resource.data.friendCode is string
+          && request.resource.data.requestId is string
+          && getAfter(/databases/$(database)/documents/friendRequests/$(request.resource.data.requestId)).data.status == 'accepted'
+          && getAfter(/databases/$(database)/documents/friendRequests/$(request.resource.data.requestId)).data.toUid == request.auth.uid
+          && (
+            (uid == request.auth.uid
+              && friendUid == getAfter(/databases/$(database)/documents/friendRequests/$(request.resource.data.requestId)).data.fromUid)
+            || (friendUid == request.auth.uid
+              && uid == getAfter(/databases/$(database)/documents/friendRequests/$(request.resource.data.requestId)).data.fromUid)
+          );
+        allow update, delete: if false;
+      }
+
+      match /weeklyScores/{weekKey} {
+        allow get: if signedIn() && (request.auth.uid == uid || isFriend(uid));
+        allow list: if false;
+        allow create, update: if signedIn()
+          && request.auth.uid == uid
+          && request.resource.data.keys().hasOnly([
+            'weekStart', 'weekEnd', 'score', 'completedSessions', 'plannedSessions',
+            'completedMinutes', 'plannedMinutes', 'updatedAt'
+          ])
+          && request.resource.data.weekStart == weekKey
+          && request.resource.data.score is int
+          && request.resource.data.score >= 0
+          && request.resource.data.score <= 100
+          && request.resource.data.completedSessions is int
+          && request.resource.data.plannedSessions is int
+          && request.resource.data.completedSessions >= 0
+          && request.resource.data.plannedSessions >= request.resource.data.completedSessions
+          && request.resource.data.plannedSessions <= 500
+          && request.resource.data.completedMinutes is int
+          && request.resource.data.plannedMinutes is int
+          && request.resource.data.completedMinutes >= 0
+          && request.resource.data.plannedMinutes >= request.resource.data.completedMinutes
+          && request.resource.data.plannedMinutes <= 100000
+          && request.resource.data.weekEnd is string
+          && request.resource.data.updatedAt is timestamp;
+        allow delete: if signedIn() && request.auth.uid == uid;
+      }
+    }
+
+    match /friendCodes/{code} {
+      allow get: if signedIn();
+      allow list: if false;
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['uid', 'displayName'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.displayName is string
+        && getAfter(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.friendCode == code;
+      allow update, delete: if false;
+    }
+
+    match /friendRequests/{requestId} {
+      allow get, list: if signedIn()
+        && (resource.data.fromUid == request.auth.uid || resource.data.toUid == request.auth.uid);
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly([
+          'fromUid', 'fromName', 'fromCode', 'toUid', 'toName', 'toCode', 'status', 'createdAt'
+        ])
+        && request.resource.data.fromUid == request.auth.uid
+        && request.resource.data.toUid is string
+        && request.resource.data.toUid != request.auth.uid
+        && request.resource.data.fromName == nameForUid(request.auth.uid)
+        && request.resource.data.fromCode == codeForUid(request.auth.uid)
+        && request.resource.data.toName == nameForUid(request.resource.data.toUid)
+        && request.resource.data.toCode == codeForUid(request.resource.data.toUid)
+        && request.resource.data.status == 'pending'
+        && request.resource.data.createdAt is timestamp;
+      allow update: if signedIn()
+        && resource.data.toUid == request.auth.uid
+        && resource.data.status == 'pending'
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status'])
+        && request.resource.data.status in ['accepted', 'declined'];
+      allow delete: if false;
+    }
+  }
+}
