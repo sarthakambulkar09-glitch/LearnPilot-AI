@@ -150,7 +150,11 @@ Google Gemini API| AI tutoring, question generation, and supported evaluation ta
 PyMuPDF| PDF text extraction
 python-pptx| PowerPoint text extraction
 Embeddings and retrieval| Finding relevant passages in uploaded materials
+<<<<<<< HEAD
 Firebase Authentication + Cloud Firestore| Cross-account Study Friends, friend requests, and weekly score sharing
+=======
+Firebase| Optional authentication and persistent storage
+>>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
 RAGAS or suitable evaluation tools| Measuring retrieval and answer quality
 
 The final stack depends on the implemented codebase. Remove technologies that are not actually used.
@@ -179,6 +183,7 @@ flowchart LR
 
 Prerequisites
 
+<<<<<<< HEAD
 - Node.js 20 or later.
 - Git.
 - A Google AI Studio API key if Gemini-powered features are enabled.
@@ -212,6 +217,63 @@ Open the local URL printed in the terminal, usually:
 http://localhost:3000
 
 Study Friends uses email/password accounts, friend codes, accepted friend requests, and a weekly leaderboard. The weekly study score is completed scheduled minutes divided by planned minutes; it is a motivational measure, not an exam grade. Only weekly totals are shared with accepted friends. Scores are calculated from client-side planner data and are not independently verified.
+=======
+- Python 3.10 or a compatible version supported by your dependencies.
+- Git.
+- A Google AI Studio API key if Gemini-powered features are enabled.
+- The project source code.
+
+1. Clone the repository
+
+git clone https://github.com/YOUR-USERNAME/LearnPilot-AI.git
+cd LearnPilot-AI
+
+Replace "YOUR-USERNAME" with your GitHub username.
+
+2. Create a virtual environment
+
+python -m venv .venv
+
+Activate it on Windows:
+
+.venv\Scripts\activate
+
+Activate it on Linux or macOS:
+
+source .venv/bin/activate
+
+3. Install dependencies
+
+pip install -r requirements.txt
+
+4. Configure your API key
+
+Get your key from "Google AI Studio" (https://aistudio.google.com/).
+
+For local development, use the secret-management approach supported by your application. If using Streamlit secrets, create ".streamlit/secrets.toml" locally:
+
+GEMINI_API_KEY = "YOUR_API_KEY_HERE"
+
+Alternatively, use the environment variable approach implemented in your code.
+
+Security: Never commit API keys, service-account files, passwords, or real student records. Add local secret files to ".gitignore".
+
+5. Run the application
+
+For a Streamlit application:
+
+streamlit run app.py
+
+If your entry-point filename differs, use the actual filename in your repository.
+
+6. Open the application
+
+Streamlit will provide a local URL, usually:
+
+http://localhost:8501
+
+Follow the terminal output if another port is selected.
+>>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
 
 🧪 Quality & Evaluation
 
@@ -242,7 +304,10 @@ Publish actual test results when available. Do not report unmeasured accuracy, l
 - [ ] Add answer evaluation and detailed score reports.
 - [ ] Generate weak-topic learning paths.
 - [ ] Build weekly learning growth forecasts.
+<<<<<<< HEAD
 - [x] Add cross-account Study Friends and a weekly study leaderboard (requires Firebase project configuration).
+=======
+>>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
 - [ ] Add persistent learner profiles.
 - [ ] Evaluate grounding, assessment quality, and forecast accuracy.
 - [ ] Deploy the application and publish a complete demonstration.

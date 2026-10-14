@@ -13,8 +13,12 @@ import {
   UserX,
   CheckCircle2,
   AlertTriangle,
+<<<<<<< HEAD
   Layers,
   Users
+=======
+  Layers
+>>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
 } from 'lucide-react';
 import { StorageService } from '../services/storage';
 import { InAppNotification } from '../types';
@@ -62,7 +66,10 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'planner', label: 'Study Planner', icon: Calendar },
     { id: 'generator', label: 'Exam Generator & Taking', icon: FileQuestion },
     { id: 'flashcards', label: 'Flashcards Revision', icon: Layers },
+<<<<<<< HEAD
     { id: 'friends', label: 'Study Friends', icon: Users },
+=======
+>>>>>>> b48eb4a78d3247212f347e1e082aff6afaaa41ca
     { id: 'evaluation', label: 'Evaluation & Pathways', icon: Award },
     { id: 'tutor', label: 'Source-Grounded Tutor', icon: Bot },
   ];
